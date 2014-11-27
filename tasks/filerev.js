@@ -46,17 +46,18 @@ module.exports = function (grunt) {
         var hash = crypto.createHash(options.algorithm).update(fs.readFileSync(file)).digest('hex');
         var suffix = hash.slice(0, options.length);
         var ext = path.extname(file);
-        var newName = [path.basename(file, ext), suffix, ext.slice(1)].join('.');
+        // var newName = [path.basename(file, ext), suffix, ext.slice(1)].join('.');
+        var newName = path.basename(file, ext) +'.'+ ext.slice(1) +'?'+suffix;
         var resultPath;
 
         if (move) {
           dirname = path.dirname(file);
           resultPath = path.resolve(dirname, newName);
-          fs.renameSync(file, resultPath);
+          // fs.renameSync(file, resultPath);
         } else {
           dirname = el.dest;
           resultPath = path.resolve(dirname, newName);
-          grunt.file.copy(file, resultPath);
+          // grunt.file.copy(file, resultPath);
         }
 
         // Source maps
